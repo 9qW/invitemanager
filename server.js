@@ -237,4 +237,4 @@ client.channels.cache.get('755839795447464006').send(`${member} Left, Invited by
 
 
 
-client.login("NTk2MDQ2OTM0OTY4NjMxMzA3.XRz19w.bJX4jneJLjXGdpdvc5dqHS5bc3I");
+client.login("");
