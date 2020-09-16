@@ -32,7 +32,7 @@ client.on("message", message => {
         `https://cdn.discordapp.com/avatars/753279617862729749/031ee5ed695dc6dffd15f7776cc1119a.png?size=128`
       )
       .setFooter(
-        `Bot by Rainbow#1234`,
+        `Bot by Zyvok#9999`,
         `https://images-ext-1.discordapp.net/external/sWU7uAQUaxOulXecrHpo2G9wyMuQS0G_Z7y0KQxxPQk/%3Fsize%3D128/https/cdn.discordapp.com/avatars/744243996267905076/a_ab72dde92697041826789d5778f0047b.gif`
       )
       .setTimestamp();
@@ -92,7 +92,7 @@ client.on("message", message => {
         `https://cdn.discordapp.com/avatars/753279617862729749/031ee5ed695dc6dffd15f7776cc1119a.png?size=128`
       )
       .setFooter(
-        `Bot by Rainbow#1234`,
+        `Bot by Zyvok#9999`,
         `https://images-ext-1.discordapp.net/external/sWU7uAQUaxOulXecrHpo2G9wyMuQS0G_Z7y0KQxxPQk/%3Fsize%3D128/https/cdn.discordapp.com/avatars/744243996267905076/a_ab72dde92697041826789d5778f0047b.gif`
       )
       .setTimestamp();
@@ -118,7 +118,7 @@ client.on("message", async message => {
         `https://cdn.discordapp.com/avatars/753279617862729749/031ee5ed695dc6dffd15f7776cc1119a.png?size=128`
       )
       .setFooter(
-        `Bot by Rainbow#1234`,
+        `Bot by Zyvok#9999`,
         `https://images-ext-1.discordapp.net/external/sWU7uAQUaxOulXecrHpo2G9wyMuQS0G_Z7y0KQxxPQk/%3Fsize%3D128/https/cdn.discordapp.com/avatars/744243996267905076/a_ab72dde92697041826789d5778f0047b.gif`
       )
       .setTimestamp();
@@ -144,7 +144,7 @@ client.on("message", async message => {
           `https://cdn.discordapp.com/avatars/753279617862729749/031ee5ed695dc6dffd15f7776cc1119a.png?size=128`
         )
         .setFooter(
-          `Bot by Rainbow#1234`,
+          `Bot by Zyvok#9999`,
           `https://images-ext-1.discordapp.net/external/sWU7uAQUaxOulXecrHpo2G9wyMuQS0G_Z7y0KQxxPQk/%3Fsize%3D128/https/cdn.discordapp.com/avatars/744243996267905076/a_ab72dde92697041826789d5778f0047b.gif`
         )
         .setTimestamp();
@@ -171,7 +171,7 @@ client.on("message", async message => {
           `https://cdn.discordapp.com/avatars/753279617862729749/031ee5ed695dc6dffd15f7776cc1119a.png?size=128`
         )
         .setFooter(
-          `Bot by Rainbow#1234`,
+          `Bot by Zyvok#9999`,
           `https://images-ext-1.discordapp.net/external/sWU7uAQUaxOulXecrHpo2G9wyMuQS0G_Z7y0KQxxPQk/%3Fsize%3D128/https/cdn.discordapp.com/avatars/744243996267905076/a_ab72dde92697041826789d5778f0047b.gif`
         )
         .setTimestamp();
@@ -193,7 +193,7 @@ client.on("message", message => {
         `https://cdn.discordapp.com/avatars/753279617862729749/031ee5ed695dc6dffd15f7776cc1119a.png?size=128`
       )
       .setFooter(
-        `Bot by Rainbow#1234`,
+        `Bot by Zyvok#9999`,
         `https://images-ext-1.discordapp.net/external/sWU7uAQUaxOulXecrHpo2G9wyMuQS0G_Z7y0KQxxPQk/%3Fsize%3D128/https/cdn.discordapp.com/avatars/744243996267905076/a_ab72dde92697041826789d5778f0047b.gif`
       )
       .setTimestamp();
