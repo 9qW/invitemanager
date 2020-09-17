@@ -32,7 +32,7 @@ client.on("message", message => {
         `https://cdn.discordapp.com/avatars/753279617862729749/031ee5ed695dc6dffd15f7776cc1119a.png?size=128`
       )
       .setFooter(
-        `Bot by Zyvok#9999`,
+        `Bot by Rainbow#1234`,
         `https://images-ext-1.discordapp.net/external/sWU7uAQUaxOulXecrHpo2G9wyMuQS0G_Z7y0KQxxPQk/%3Fsize%3D128/https/cdn.discordapp.com/avatars/744243996267905076/a_ab72dde92697041826789d5778f0047b.gif`
       )
       .setTimestamp();
@@ -92,7 +92,7 @@ client.on("message", message => {
         `https://cdn.discordapp.com/avatars/753279617862729749/031ee5ed695dc6dffd15f7776cc1119a.png?size=128`
       )
       .setFooter(
-        `Bot by Zyvok#9999`,
+        `Bot by Rainbow#1234`,
         `https://images-ext-1.discordapp.net/external/sWU7uAQUaxOulXecrHpo2G9wyMuQS0G_Z7y0KQxxPQk/%3Fsize%3D128/https/cdn.discordapp.com/avatars/744243996267905076/a_ab72dde92697041826789d5778f0047b.gif`
       )
       .setTimestamp();
@@ -118,7 +118,7 @@ client.on("message", async message => {
         `https://cdn.discordapp.com/avatars/753279617862729749/031ee5ed695dc6dffd15f7776cc1119a.png?size=128`
       )
       .setFooter(
-        `Bot by Zyvok#9999`,
+        `Bot by Rainbow#1234`,
         `https://images-ext-1.discordapp.net/external/sWU7uAQUaxOulXecrHpo2G9wyMuQS0G_Z7y0KQxxPQk/%3Fsize%3D128/https/cdn.discordapp.com/avatars/744243996267905076/a_ab72dde92697041826789d5778f0047b.gif`
       )
       .setTimestamp();
@@ -144,7 +144,7 @@ client.on("message", async message => {
           `https://cdn.discordapp.com/avatars/753279617862729749/031ee5ed695dc6dffd15f7776cc1119a.png?size=128`
         )
         .setFooter(
-          `Bot by Zyvok#9999`,
+          `Bot by Rainbow#1234`,
           `https://images-ext-1.discordapp.net/external/sWU7uAQUaxOulXecrHpo2G9wyMuQS0G_Z7y0KQxxPQk/%3Fsize%3D128/https/cdn.discordapp.com/avatars/744243996267905076/a_ab72dde92697041826789d5778f0047b.gif`
         )
         .setTimestamp();
@@ -171,7 +171,7 @@ client.on("message", async message => {
           `https://cdn.discordapp.com/avatars/753279617862729749/031ee5ed695dc6dffd15f7776cc1119a.png?size=128`
         )
         .setFooter(
-          `Bot by Zyvok#9999`,
+          `Bot by Rainbow#1234`,
           `https://images-ext-1.discordapp.net/external/sWU7uAQUaxOulXecrHpo2G9wyMuQS0G_Z7y0KQxxPQk/%3Fsize%3D128/https/cdn.discordapp.com/avatars/744243996267905076/a_ab72dde92697041826789d5778f0047b.gif`
         )
         .setTimestamp();
@@ -193,7 +193,7 @@ client.on("message", message => {
         `https://cdn.discordapp.com/avatars/753279617862729749/031ee5ed695dc6dffd15f7776cc1119a.png?size=128`
       )
       .setFooter(
-        `Bot by Zyvok#9999`,
+        `Bot by Rainbow#1234`,
         `https://images-ext-1.discordapp.net/external/sWU7uAQUaxOulXecrHpo2G9wyMuQS0G_Z7y0KQxxPQk/%3Fsize%3D128/https/cdn.discordapp.com/avatars/744243996267905076/a_ab72dde92697041826789d5778f0047b.gif`
       )
       .setTimestamp();
@@ -202,30 +202,49 @@ client.on("message", message => {
   }
 });
 
-const invites = {};
+const guildInvites = new Map();
 
-client.on("ready", () => {
-  client.guilds.cache.forEach(g => {
-    g.fetchInvites().then(guildInvites => {
-      invites[g.id] = guildInvites;
+client.on('inviteCreate', async invite => guildInvites.set(invite.guild.id, await invite.guild.fetchInvites()));
+client.on('ready', () => {
+    console.log(`${client.user.tag} has logged in.`);
+    client.guilds.cache.forEach(guild => {
+        guild.fetchInvites()
+            .then(invites => guildInvites.set(guild.id, invites))
+            .catch(err => console.log(err));
     });
-  });
 });
 
 
+client.on('guildMemberAdd', async member => {
+    const catchedInvites = guildInvites.get(member.guild.id)
+    const newInvites = await member.guild.fetchInvites();
+    guildInvites.set(member.guild.id, newInvites)
+    try {
+        const usedInvite = newInvites.find(inv => catchedInvites.get(inv.code).uses < inv.uses)
+db.add(`invites_${member.guild.id}_${usedInvite.inviter.id}`, 1)
+db.set(`inviter_${member.id}`, usedInvite.inviter.id)
+let inv = db.fetch(`invites_${member.guild.id}_${usedInvite.inviter.id}`)
+client.channels.cache.get('754864967152435260').send(`${member} **Joined;** invited By <@${usedInvite.inviter.id}> (**${inv}** invites)`)
+    } catch (err) {
+        console.log(err)
+    }
 
-client.on("guildMemberAdd", member => {
+});
+
+/*client.on("guildMemberAdd", member => {
 member.guild.fetchInvites().then(async guildInvites => {
-const ei = invites[member.guild.id];
-invites[member.guild.id] = guildInvites;
-const invite = guildInvites.find(i => ei.get(i.code).uses < i.uses);
-const inviter = client.users.cache.get(invite.inviter.id);
-db.add(`invites_${member.guild.id}_${inviter.id}`, 1)
-db.set(`inviter_${member.id}`, invite.inviter.id)
-let inv = db.fetch(`invites_${member.guild.id}_${inviter.id}`)
-client.channels.cache.get('754864967152435260').send(`${member} **Joined;** invited By <@${inviter.id}> (**${inv}** invites)`)
-})
-})
+    const cachedInvites = guildInvites.get(member.guild.id);
+ const newInvites = await member.guild.fetchInvites();
+guildInvites.set(member.guild.id, newInvites);
+const usedInvite = newInvites.find(inv => cachedInvites.cache.get(inv.code).uses < inv.uses);
+const inviter = client.users.cache.get(usedInvite.inviter.id);
+db.add(`invites_${member.guild.id}_${usedInvite.inviter.id}`, 1)
+db.set(`inviter_${member.id}`, usedInvite.inviter.id)
+let inv = db.fetch(`invites_${member.guild.id}_${usedInvite.inviter.id}`)
+client.channels.cache.get('754864967152435260').send(`${member} **Joined;** invited By <@${usedInvite.inviter.id}> (**${inv}** invites)`)
+    
+    })
+})*/
 
 client.on("guildMemberRemove", member => {
 let inviter2 = db.fetch(`inviter_${member.id}`)
@@ -237,4 +256,4 @@ client.channels.cache.get('755839795447464006').send(`${member} Left, Invited by
 
 
 
-client.login("");
+client.login("NTk2MDQ2OTM0OTY4NjMxMzA3.XRz19w.3p8-jfleKGc_Ix9n7x4knn1UDK4");
